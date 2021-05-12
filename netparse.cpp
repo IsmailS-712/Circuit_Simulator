@@ -33,30 +33,30 @@ std::vector<std::string>* load_netlist(const std::string& filename) {
 }
 
 
-std::vector<Component>* parse_netlist_to_components(std::vector<std::string>* netlist) {
-    auto* components = new std::vector<Component>;
+std::vector<Component*>* parse_netlist_to_components(std::vector<std::string>* netlist) {
+    auto* components = new std::vector<Component*>;
 
     for (const std::string& line: *netlist) {
         if (IndependentVoltageSource::represented_by(line)) {
-            components->push_back(IndependentVoltageSource(line));
+            components->push_back(new IndependentVoltageSource(line));
         } else if (CurrentSource::represented_by(line)) {
-            components->push_back(CurrentSource(line));
+            components->push_back(new CurrentSource(line));
         } else if (Resistor::represented_by(line)) {
-            components->push_back(Resistor(line));
+            components->push_back(new Resistor(line));
         } else if (Capacitor::represented_by(line)) {
-            components->push_back(Capacitor(line));
+            components->push_back(new Capacitor(line));
         } else if (Inductor::represented_by(line)) {
-            components->push_back(Inductor(line));
+            components->push_back(new Inductor(line));
         } else if (Diode::represented_by(line)) {
-            components->push_back(Diode(line));
+            components->push_back(new Diode(line));
         } else if (Diode::represented_by(line)) {
-            components->push_back(Diode(line));
+            components->push_back(new Diode(line));
         } else if (BipolarJunctionTransistor::represented_by(line)) {
-            components->push_back(BipolarJunctionTransistor(line));
+            components->push_back(new BipolarJunctionTransistor(line));
         } else if (Mosfet::represented_by(line)) {
-            components->push_back(Mosfet(line));
+            components->push_back(new Mosfet(line));
         } else if (VoltageControlledCurrentSource::represented_by(line)) {
-            components->push_back(VoltageControlledCurrentSource(line));
+            components->push_back(new VoltageControlledCurrentSource(line));
         }
     }
 

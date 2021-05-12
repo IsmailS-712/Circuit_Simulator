@@ -17,10 +17,10 @@
 
 int main() {
     std::vector<std::string>* netlist = load_netlist("test_netlist.txt");
-    std::vector<Component>* components = parse_netlist_to_components(netlist);
+    std::vector<Component*>* components = parse_netlist_to_components(netlist);
 
-    for (Component component: *components) {
-        std::cout << component.get_id() << " " << component.get_value() << std::endl;
+    for (Component* component: *components) {
+        std::cout << component->get_id() << " " << component->get_value() << std::endl;
     }
     return 0;
 }
