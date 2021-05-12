@@ -60,5 +60,5 @@ std::vector<Component>* parse_netlist_to_components(std::vector<std::string>& ne
         }
     }
 
-    return components
+    return components;
 }
