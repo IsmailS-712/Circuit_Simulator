@@ -17,11 +17,14 @@ struct ParseReturn {
 
 class Component {
 public:
+    int get_id();
     std::string get_value();
-    bool represented_by(const std::string& token_str);
+    static bool represented_by(const std::string& token_str);
 
 protected:
-    char identifier;
+    static const char identifier;
+
+    int id;
     std::string value;
     ParseReturn* parse(const std::string& token_str);
 };
@@ -32,7 +35,9 @@ public:
     IndependentVoltageSource(const std::string& token_str);
 
 protected:
-    char identifier = 'V';
+    static const char identifier = 'V';
+
+    int id;
     std::string value;
     std::string positive_node;
     std::string negative_node;
@@ -44,7 +49,9 @@ public:
     CurrentSource(const std::string& token_str);
 
 protected:
-    char identifier = 'I';
+    static const char identifier = 'I';
+
+    int id;
     std::string value;
     std::string input_node;
     std::string output_node;
@@ -56,7 +63,9 @@ public:
     Resistor(const std::string& token_str);
 
 protected:
-    char identifier = 'R';
+    static const char identifier = 'R';
+
+    int id;
     std::string value;
     std::string input_node;
     std::string output_node;
@@ -68,7 +77,9 @@ public:
     Capacitor(const std::string& token_str);
 
 protected:
-    char identifier = 'C';
+    static const char identifier = 'C';
+
+    int id;
     std::string value;
     std::string input_node;
     std::string output_node;
@@ -80,7 +91,9 @@ public:
     Inductor(const std::string& token_str);
 
 protected:
-    char identifier = 'L';
+    static const char identifier = 'L';
+
+    int id;
     std::string value;
     std::string input_node;
     std::string output_node;
@@ -92,7 +105,9 @@ public:
     Diode(const std::string& token_str);
 
 protected:
-    char identifier = 'I';
+    static const char identifier = 'I';
+
+    int id;
     std::string value;
     std::string anode;
     std::string cathode;
@@ -104,7 +119,9 @@ public:
     BipolarJunctionTransistor(const std::string& token_str);
 
 protected:
-    char identifier = 'Q';
+    static const char identifier = 'Q';
+
+    int id;
     std::string value;
     std::string collector;
     std::string base;
@@ -117,7 +134,9 @@ public:
     Mosfet(const std::string& token_str);
 
 protected:
-    char identifier = 'M';
+    static const char identifier = 'M';
+
+    int id;
     std::string value;
     std::string drain;
     std::string gate;
@@ -130,7 +149,9 @@ public:
     VoltageControlledCurrentSource(const std::string& token_str);
 
 protected:
-    char identifier = 'G';
+    static const char identifier = 'G';
+
+    int id;
     std::string value;
     std::string positive;
     std::string negative;

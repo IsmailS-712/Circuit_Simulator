@@ -8,13 +8,23 @@
 
 #include "components.h"
 
+
+int get_id_from_identifier(const std::string& identifier) {
+    return std::stoi(identifier.substr(1, identifier.length()));
+}
+
+
 // Definition of Component members
+int Component::get_id() {
+    return this->id;
+}
+
 std::string Component::get_value() {
     return this->value;
 }
 
 bool Component::represented_by(const std::string &token_str) {
-    return token_str.rfind(this->identifier, 0) == 0;
+    return token_str.rfind(identifier, 0) == 0;
 }
 
 ParseReturn* Component::parse(const std::string &token_str) {
@@ -39,6 +49,8 @@ IndependentVoltageSource::IndependentVoltageSource(const std::string &token_str)
     ParseReturn* parsed = this->parse(token_str);
     this->value = parsed->value;
 
+    this->id = get_id_from_identifier(parsed->identifier);
+
     this->positive_node = parsed->nodes[0];
     this->negative_node = parsed->nodes[1];
     delete parsed;
@@ -49,6 +61,8 @@ IndependentVoltageSource::IndependentVoltageSource(const std::string &token_str)
 CurrentSource::CurrentSource(const std::string &token_str) {
     ParseReturn* parsed = this->parse(token_str);
     this->value = parsed->value;
+
+    this->id = get_id_from_identifier(parsed->identifier);
 
     this->input_node = parsed->nodes[0];
     this->output_node = parsed->nodes[1];
@@ -61,6 +75,8 @@ Resistor::Resistor(const std::string &token_str) {
     ParseReturn* parsed = this->parse(token_str);
     this->value = parsed->value;
 
+    this->id = get_id_from_identifier(parsed->identifier);
+
     this->input_node = parsed->nodes[0];
     this->output_node = parsed->nodes[1];
     delete parsed;
@@ -71,6 +87,8 @@ Resistor::Resistor(const std::string &token_str) {
 Capacitor::Capacitor(const std::string &token_str) {
     ParseReturn* parsed = this->parse(token_str);
     this->value = parsed->value;
+
+    this->id = get_id_from_identifier(parsed->identifier);
 
     this->input_node = parsed->nodes[0];
     this->output_node = parsed->nodes[1];
@@ -83,6 +101,8 @@ Inductor::Inductor(const std::string &token_str) {
     ParseReturn* parsed = this->parse(token_str);
     this->value = parsed->value;
 
+    this->id = get_id_from_identifier(parsed->identifier);
+
     this->input_node = parsed->nodes[0];
     this->output_node = parsed->nodes[1];
     delete parsed;
@@ -94,6 +114,8 @@ Diode::Diode(const std::string &token_str) {
     ParseReturn* parsed = this->parse(token_str);
     this->value = parsed->value;
 
+    this->id = get_id_from_identifier(parsed->identifier);
+
     this->anode = parsed->nodes[0];
     this->cathode = parsed->nodes[1];
     delete parsed;
@@ -104,6 +126,8 @@ Diode::Diode(const std::string &token_str) {
 BipolarJunctionTransistor::BipolarJunctionTransistor(const std::string &token_str) {
     ParseReturn* parsed = this->parse(token_str);
     this->value = parsed->value;
+
+    this->id = get_id_from_identifier(parsed->identifier);
 
     this->collector = parsed->nodes[0];
     this->base = parsed->nodes[1];
@@ -117,6 +141,8 @@ Mosfet::Mosfet(const std::string &token_str) {
     ParseReturn* parsed = this->parse(token_str);
     this->value = parsed->value;
 
+    this->id = get_id_from_identifier(parsed->identifier);
+
     this->drain = parsed->nodes[0];
     this->gate = parsed->nodes[1];
     this->source = parsed->nodes[2];
@@ -128,6 +154,8 @@ Mosfet::Mosfet(const std::string &token_str) {
 VoltageControlledCurrentSource::VoltageControlledCurrentSource(const std::string &token_str) {
     ParseReturn* parsed = this->parse(token_str);
     this->value = parsed->value;
+
+    this->id = get_id_from_identifier(parsed->identifier);
 
     this->positive = parsed->nodes[0];
     this->negative = parsed->nodes[1];
