@@ -56,6 +56,10 @@ IndependentVoltageSource::IndependentVoltageSource(const std::string &token_str)
     delete parsed;
 }
 
+bool IndependentVoltageSource::represented_by(const std::string &token_str) {
+    return token_str.rfind(get_identifier(), 0) == 0;
+}
+
 
 // Definition of CurrentSource members
 CurrentSource::CurrentSource(const std::string &token_str) {
@@ -67,6 +71,10 @@ CurrentSource::CurrentSource(const std::string &token_str) {
     this->input_node = parsed->nodes[0];
     this->output_node = parsed->nodes[1];
     delete parsed;
+}
+
+bool CurrentSource::represented_by(const std::string &token_str) {
+    return token_str.rfind(get_identifier(), 0) == 0;
 }
 
 
@@ -82,6 +90,10 @@ Resistor::Resistor(const std::string &token_str) {
     delete parsed;
 }
 
+bool Resistor::represented_by(const std::string &token_str) {
+    return token_str.rfind(get_identifier(), 0) == 0;
+}
+
 
 // Definition of Capacitor members
 Capacitor::Capacitor(const std::string &token_str) {
@@ -93,6 +105,10 @@ Capacitor::Capacitor(const std::string &token_str) {
     this->input_node = parsed->nodes[0];
     this->output_node = parsed->nodes[1];
     delete parsed;
+}
+
+bool Capacitor::represented_by(const std::string &token_str) {
+    return token_str.rfind(get_identifier(), 0) == 0;
 }
 
 
@@ -108,6 +124,10 @@ Inductor::Inductor(const std::string &token_str) {
     delete parsed;
 }
 
+bool Inductor::represented_by(const std::string &token_str) {
+    return token_str.rfind(get_identifier(), 0) == 0;
+}
+
 
 // Definition of Diode members
 Diode::Diode(const std::string &token_str) {
@@ -119,6 +139,10 @@ Diode::Diode(const std::string &token_str) {
     this->anode = parsed->nodes[0];
     this->cathode = parsed->nodes[1];
     delete parsed;
+}
+
+bool Diode::represented_by(const std::string &token_str) {
+    return token_str.rfind(get_identifier(), 0) == 0;
 }
 
 
@@ -135,6 +159,10 @@ BipolarJunctionTransistor::BipolarJunctionTransistor(const std::string &token_st
     delete parsed;
 }
 
+bool BipolarJunctionTransistor::represented_by(const std::string &token_str) {
+    return token_str.rfind(get_identifier(), 0) == 0;
+}
+
 
 // Definition of Mosfet members
 Mosfet::Mosfet(const std::string &token_str) {
@@ -147,6 +175,10 @@ Mosfet::Mosfet(const std::string &token_str) {
     this->gate = parsed->nodes[1];
     this->source = parsed->nodes[2];
     delete parsed;
+}
+
+bool Mosfet::represented_by(const std::string &token_str) {
+    return token_str.rfind(get_identifier(), 0) == 0;
 }
 
 
@@ -162,4 +194,8 @@ VoltageControlledCurrentSource::VoltageControlledCurrentSource(const std::string
     this->control_positive = parsed->nodes[2];
     this->control_negative = parsed->nodes[3];
     delete parsed;
+}
+
+bool VoltageControlledCurrentSource::represented_by(const std::string &token_str) {
+    return token_str.rfind(get_identifier(), 0) == 0;
 }

@@ -37,6 +37,8 @@ protected:
 class IndependentVoltageSource: public Component {
 public:
     IndependentVoltageSource(const std::string& token_str);
+    static char get_identifier() {return identifier;};
+    static bool represented_by(const std::string &token_str);
 
 protected:
     inline static char identifier = 'V';
@@ -51,6 +53,8 @@ protected:
 class CurrentSource: public Component {
 public:
     CurrentSource(const std::string& token_str);
+    static char get_identifier() {return identifier;};
+    static bool represented_by(const std::string &token_str);
 
 protected:
     inline static char identifier = 'I';
@@ -65,6 +69,8 @@ protected:
 class Resistor: public Component {
 public:
     Resistor(const std::string& token_str);
+    static char get_identifier() {return identifier;};
+    static bool represented_by(const std::string &token_str);
 
 protected:
     inline static char identifier = 'R';
@@ -79,6 +85,8 @@ protected:
 class Capacitor: public Component {
 public:
     Capacitor(const std::string& token_str);
+    static char get_identifier() {return identifier;};
+    static bool represented_by(const std::string &token_str);
 
 protected:
     inline static char identifier = 'C';
@@ -93,6 +101,8 @@ protected:
 class Inductor: public Component {
 public:
     Inductor(const std::string& token_str);
+    static char get_identifier() {return identifier;};
+    static bool represented_by(const std::string &token_str);
 
 protected:
     inline static char identifier = 'L';
@@ -107,6 +117,8 @@ protected:
 class Diode: public Component {
 public:
     Diode(const std::string& token_str);
+    static char get_identifier() {return identifier;};
+    static bool represented_by(const std::string &token_str);
 
 protected:
     inline static char identifier = 'I';
@@ -121,6 +133,8 @@ protected:
 class BipolarJunctionTransistor: public Component {
 public:
     BipolarJunctionTransistor(const std::string& token_str);
+    static char get_identifier() {return identifier;};
+    static bool represented_by(const std::string &token_str);
 
 protected:
     inline static char identifier = 'Q';
@@ -136,6 +150,8 @@ protected:
 class Mosfet: public Component {
 public:
     Mosfet(const std::string& token_str);
+    static char get_identifier() {return identifier;};
+    static bool represented_by(const std::string &token_str);
 
 protected:
     inline static char identifier = 'M';
@@ -151,6 +167,8 @@ protected:
 class VoltageControlledCurrentSource: public Component {
 public:
     VoltageControlledCurrentSource(const std::string& token_str);
+    static char get_identifier() {return identifier;};
+    static bool represented_by(const std::string &token_str);
 
 protected:
     inline static char identifier = 'G';
