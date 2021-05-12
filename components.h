@@ -2,6 +2,9 @@
 // Created by Oliver on 12/05/2021.
 //
 
+#ifndef ICL_CIRCUIT_SIMULATOR_COMPONENTS_H
+#define ICL_CIRCUIT_SIMULATOR_COMPONENTS_H
+
 #include <vector>
 #include <string>
 #include <sstream>
@@ -158,3 +161,5 @@ protected:
     std::string control_positive;
     std::string control_negative;
 };
+
+#endif
