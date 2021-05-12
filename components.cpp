@@ -55,6 +55,7 @@ public:
 
         this->positive_node = parsed->nodes[0];
         this->negative_node = parsed->nodes[1];
+        delete parsed;
     }
 
 protected:
@@ -73,6 +74,7 @@ public:
 
         this->input_node = parsed->nodes[0];
         this->output_node = parsed->nodes[1];
+        delete parsed;
     }
 
 protected:
@@ -91,6 +93,7 @@ public:
 
         this->input_node = parsed->nodes[0];
         this->output_node = parsed->nodes[1];
+        delete parsed;
     }
 
 protected:
@@ -109,6 +112,7 @@ public:
 
         this->input_node = parsed->nodes[0];
         this->output_node = parsed->nodes[1];
+        delete parsed;
     }
 
 protected:
@@ -127,6 +131,7 @@ public:
 
         this->input_node = parsed->nodes[0];
         this->output_node = parsed->nodes[1];
+        delete parsed;
     }
 
 protected:
@@ -145,6 +150,7 @@ public:
 
         this->anode = parsed->nodes[0];
         this->cathode = parsed->nodes[1];
+        delete parsed;
     }
 
 protected:
@@ -152,4 +158,69 @@ protected:
 
     std::string anode;
     std::string cathode;
+};
+
+
+class BipolarJunctionTransistor: public Component {
+public:
+    BipolarJunctionTransistor(const std::string& token_str) {
+        ParseReturn* parsed = this->parse(token_str);
+        this->value = parsed->value;
+
+        this->collector = parsed->nodes[0];
+        this->base = parsed->nodes[1];
+        this->emitter = parsed->nodes[2];
+        delete parsed;
+    }
+
+protected:
+    char identifier = 'Q';
+
+    std::string collector;
+    std::string base;
+    std::string emitter;
+};
+
+
+class Mosfet: public Component {
+public:
+    Mosfet(const std::string& token_str) {
+        ParseReturn* parsed = this->parse(token_str);
+        this->value = parsed->value;
+
+        this->drain = parsed->nodes[0];
+        this->gate = parsed->nodes[1];
+        this->source = parsed->nodes[2];
+        delete parsed;
+    }
+
+protected:
+    char identifier = 'M';
+
+    std::string drain;
+    std::string gate;
+    std::string source;
+};
+
+
+class VoltageControlledCurrentSource: public Component {
+public:
+    VoltageControlledCurrentSource(const std::string& token_str) {
+        ParseReturn* parsed = this->parse(token_str);
+        this->value = parsed->value;
+
+        this->positive = parsed->nodes[0];
+        this->negative = parsed->nodes[1];
+        this->control_positive = parsed->nodes[2];
+        this->control_negative = parsed->nodes[3];
+        delete parsed;
+    }
+
+protected:
+    char identifier = 'G';
+
+    std::string positive;
+    std::string negative;
+    std::string control_positive;
+    std::string control_negative;
 };

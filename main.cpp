@@ -10,5 +10,6 @@ int main() {
     for (const std::string& line: *lines) {
         std::cout << line << std::endl;
     }
+    delete lines;
     return 0;
 }
