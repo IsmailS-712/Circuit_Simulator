@@ -20,13 +20,14 @@ struct ParseReturn {
 
 class Component {
 public:
-    static const char identifier;
+    static char get_identifier() {return identifier;};
 
     int get_id();
     std::string get_value();
     static bool represented_by(const std::string& token_str);
 
 protected:
+    inline static char identifier = '_';
     int id;
     std::string value;
     ParseReturn* parse(const std::string& token_str);
@@ -35,11 +36,11 @@ protected:
 
 class IndependentVoltageSource: public Component {
 public:
-    static const char identifier = 'V';
-
     IndependentVoltageSource(const std::string& token_str);
 
 protected:
+    inline static char identifier = 'V';
+
     int id;
     std::string value;
     std::string positive_node;
@@ -49,11 +50,11 @@ protected:
 
 class CurrentSource: public Component {
 public:
-    static const char identifier = 'I';
-
     CurrentSource(const std::string& token_str);
 
 protected:
+    inline static char identifier = 'I';
+
     int id;
     std::string value;
     std::string input_node;
@@ -63,11 +64,11 @@ protected:
 
 class Resistor: public Component {
 public:
-    static const char identifier = 'R';
-
     Resistor(const std::string& token_str);
 
 protected:
+    inline static char identifier = 'R';
+
     int id;
     std::string value;
     std::string input_node;
@@ -77,11 +78,11 @@ protected:
 
 class Capacitor: public Component {
 public:
-    static const char identifier = 'C';
-
     Capacitor(const std::string& token_str);
 
 protected:
+    inline static char identifier = 'C';
+
     int id;
     std::string value;
     std::string input_node;
@@ -91,11 +92,11 @@ protected:
 
 class Inductor: public Component {
 public:
-    static const char identifier = 'L';
-
     Inductor(const std::string& token_str);
 
 protected:
+    inline static char identifier = 'L';
+
     int id;
     std::string value;
     std::string input_node;
@@ -105,11 +106,11 @@ protected:
 
 class Diode: public Component {
 public:
-    static const char identifier = 'I';
-
     Diode(const std::string& token_str);
 
 protected:
+    inline static char identifier = 'I';
+
     int id;
     std::string value;
     std::string anode;
@@ -119,11 +120,11 @@ protected:
 
 class BipolarJunctionTransistor: public Component {
 public:
-    static const char identifier = 'Q';
-
     BipolarJunctionTransistor(const std::string& token_str);
 
 protected:
+    inline static char identifier = 'Q';
+
     int id;
     std::string value;
     std::string collector;
@@ -134,11 +135,11 @@ protected:
 
 class Mosfet: public Component {
 public:
-    static const char identifier = 'M';
-
     Mosfet(const std::string& token_str);
 
 protected:
+    inline static char identifier = 'M';
+
     int id;
     std::string value;
     std::string drain;
@@ -149,11 +150,11 @@ protected:
 
 class VoltageControlledCurrentSource: public Component {
 public:
-    static const char identifier = 'G';
-
     VoltageControlledCurrentSource(const std::string& token_str);
 
 protected:
+    inline static char identifier = 'G';
+
     int id;
     std::string value;
     std::string positive;

@@ -24,7 +24,7 @@ std::string Component::get_value() {
 }
 
 bool Component::represented_by(const std::string &token_str) {
-    return token_str.rfind(identifier, 0) == 0;
+    return token_str.rfind(get_identifier(), 0) == 0;
 }
 
 ParseReturn* Component::parse(const std::string &token_str) {
