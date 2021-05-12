@@ -33,10 +33,10 @@ std::vector<std::string>* load_netlist(const std::string& filename) {
 }
 
 
-std::vector<Component>* parse_netlist_to_components(std::vector<std::string>& netlist) {
-    std::vector<Component>* components = new std::vector<Component>;
+std::vector<Component>* parse_netlist_to_components(std::vector<std::string>* netlist) {
+    auto* components = new std::vector<Component>;
 
-    for (const std::string& line: netlist) {
+    for (const std::string& line: *netlist) {
         if (IndependentVoltageSource::represented_by(line)) {
             components->push_back(IndependentVoltageSource(line));
         } else if (CurrentSource::represented_by(line)) {
