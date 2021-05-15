@@ -23,11 +23,6 @@ std::unordered_map<std::string, double> value_map = {
 };
 
 
-int get_id_from_identifier(const std::string& identifier) {
-    return std::stoi(identifier.substr(1, identifier.length()));
-}
-
-
 ParseReturn* parse_netlist_line(const std::string &token_str) {
     auto* parsed = new ParseReturn;
 
