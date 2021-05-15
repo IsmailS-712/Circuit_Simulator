@@ -13,21 +13,7 @@ int get_id_from_identifier(const std::string& identifier) {
     return std::stoi(identifier.substr(1, identifier.length()));
 }
 
-
-// Definition of Component members
-int Component::get_id() {
-    return this->id;
-}
-
-std::string Component::get_value() {
-    return this->value;
-}
-
-bool Component::represented_by(const std::string &token_str) {
-    return token_str.rfind(get_identifier(), 0) == 0;
-}
-
-ParseReturn* Component::parse(const std::string &token_str) {
+ParseReturn* parse_netlist_line(const std::string &token_str) {
     auto* parsed = new ParseReturn;
 
     std::istringstream buf(token_str);
@@ -44,158 +30,10 @@ ParseReturn* Component::parse(const std::string &token_str) {
 }
 
 
-// Definition of IndependentVoltageSource members
-IndependentVoltageSource::IndependentVoltageSource(const std::string &token_str) {
-    ParseReturn* parsed = this->parse(token_str);
-    this->value = parsed->value;
-
-    this->id = get_id_from_identifier(parsed->identifier);
-
-    this->positive_node = parsed->nodes[0];
-    this->negative_node = parsed->nodes[1];
-    delete parsed;
-}
-
-bool IndependentVoltageSource::represented_by(const std::string &token_str) {
-    return token_str.rfind(get_identifier(), 0) == 0;
-}
-
-
-// Definition of CurrentSource members
-CurrentSource::CurrentSource(const std::string &token_str) {
-    ParseReturn* parsed = this->parse(token_str);
-    this->value = parsed->value;
-
-    this->id = get_id_from_identifier(parsed->identifier);
-
-    this->input_node = parsed->nodes[0];
-    this->output_node = parsed->nodes[1];
-    delete parsed;
-}
-
-bool CurrentSource::represented_by(const std::string &token_str) {
-    return token_str.rfind(get_identifier(), 0) == 0;
-}
-
-
-// Definition of Resistor members
-Resistor::Resistor(const std::string &token_str) {
-    ParseReturn* parsed = this->parse(token_str);
-    this->value = parsed->value;
-
-    this->id = get_id_from_identifier(parsed->identifier);
-
-    this->input_node = parsed->nodes[0];
-    this->output_node = parsed->nodes[1];
-    delete parsed;
-}
-
-bool Resistor::represented_by(const std::string &token_str) {
-    return token_str.rfind(get_identifier(), 0) == 0;
-}
-
-
-// Definition of Capacitor members
-Capacitor::Capacitor(const std::string &token_str) {
-    ParseReturn* parsed = this->parse(token_str);
-    this->value = parsed->value;
-
-    this->id = get_id_from_identifier(parsed->identifier);
-
-    this->input_node = parsed->nodes[0];
-    this->output_node = parsed->nodes[1];
-    delete parsed;
-}
-
-bool Capacitor::represented_by(const std::string &token_str) {
-    return token_str.rfind(get_identifier(), 0) == 0;
-}
-
-
-// Definition of Inductor members
-Inductor::Inductor(const std::string &token_str) {
-    ParseReturn* parsed = this->parse(token_str);
-    this->value = parsed->value;
-
-    this->id = get_id_from_identifier(parsed->identifier);
-
-    this->input_node = parsed->nodes[0];
-    this->output_node = parsed->nodes[1];
-    delete parsed;
-}
-
-bool Inductor::represented_by(const std::string &token_str) {
-    return token_str.rfind(get_identifier(), 0) == 0;
-}
-
-
-// Definition of Diode members
-Diode::Diode(const std::string &token_str) {
-    ParseReturn* parsed = this->parse(token_str);
-    this->value = parsed->value;
-
-    this->id = get_id_from_identifier(parsed->identifier);
-
-    this->anode = parsed->nodes[0];
-    this->cathode = parsed->nodes[1];
-    delete parsed;
-}
-
-bool Diode::represented_by(const std::string &token_str) {
-    return token_str.rfind(get_identifier(), 0) == 0;
-}
-
-
-// Definition of BipolarJunctionTransistor members
-BipolarJunctionTransistor::BipolarJunctionTransistor(const std::string &token_str) {
-    ParseReturn* parsed = this->parse(token_str);
-    this->value = parsed->value;
-
-    this->id = get_id_from_identifier(parsed->identifier);
-
-    this->collector = parsed->nodes[0];
-    this->base = parsed->nodes[1];
-    this->emitter = parsed->nodes[2];
-    delete parsed;
-}
-
-bool BipolarJunctionTransistor::represented_by(const std::string &token_str) {
-    return token_str.rfind(get_identifier(), 0) == 0;
-}
-
-
-// Definition of Mosfet members
-Mosfet::Mosfet(const std::string &token_str) {
-    ParseReturn* parsed = this->parse(token_str);
-    this->value = parsed->value;
-
-    this->id = get_id_from_identifier(parsed->identifier);
-
-    this->drain = parsed->nodes[0];
-    this->gate = parsed->nodes[1];
-    this->source = parsed->nodes[2];
-    delete parsed;
-}
-
-bool Mosfet::represented_by(const std::string &token_str) {
-    return token_str.rfind(get_identifier(), 0) == 0;
-}
-
-
-// Definition of VoltageControlledCurrentSource members
-VoltageControlledCurrentSource::VoltageControlledCurrentSource(const std::string &token_str) {
-    ParseReturn* parsed = this->parse(token_str);
-    this->value = parsed->value;
-
-    this->id = get_id_from_identifier(parsed->identifier);
-
-    this->positive = parsed->nodes[0];
-    this->negative = parsed->nodes[1];
-    this->control_positive = parsed->nodes[2];
-    this->control_negative = parsed->nodes[3];
-    delete parsed;
-}
-
-bool VoltageControlledCurrentSource::represented_by(const std::string &token_str) {
-    return token_str.rfind(get_identifier(), 0) == 0;
+// Definition of Component members
+Component::Component(ParseReturn *parsed_line) {
+    identifier = parsed_line->identifier[0];
+    id = get_id_from_identifier(parsed_line->identifier);
+    value = parsed_line->value;
+    nodes = parsed_line->nodes;
 }

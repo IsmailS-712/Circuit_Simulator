@@ -17,168 +17,22 @@ struct ParseReturn {
     std::string value;
 };
 
+ParseReturn* parse_netlist_line(const std::string &token_str);
+
 
 class Component {
 public:
-    static char get_identifier() {return identifier;};
+    Component(ParseReturn* parsed_line);
+    char get_identifier() const {return identifier;};
+    int get_id() const {return id;};
+    std::string get_value() {return value;};
+    std::vector<std::string> get_nodes() {return nodes;};
 
-    int get_id();
-    std::string get_value();
-    static bool represented_by(const std::string& token_str);
-
-protected:
-    inline static char identifier = '_';
+private:
+    char identifier;
     int id;
     std::string value;
-    ParseReturn* parse(const std::string& token_str);
-};
-
-
-class IndependentVoltageSource: public Component {
-public:
-    IndependentVoltageSource(const std::string& token_str);
-    static char get_identifier() {return identifier;};
-    static bool represented_by(const std::string &token_str);
-
-protected:
-    inline static char identifier = 'V';
-
-    int id;
-    std::string value;
-    std::string positive_node;
-    std::string negative_node;
-};
-
-
-class CurrentSource: public Component {
-public:
-    CurrentSource(const std::string& token_str);
-    static char get_identifier() {return identifier;};
-    static bool represented_by(const std::string &token_str);
-
-protected:
-    inline static char identifier = 'I';
-
-    int id;
-    std::string value;
-    std::string input_node;
-    std::string output_node;
-};
-
-
-class Resistor: public Component {
-public:
-    Resistor(const std::string& token_str);
-    static char get_identifier() {return identifier;};
-    static bool represented_by(const std::string &token_str);
-
-protected:
-    inline static char identifier = 'R';
-
-    int id;
-    std::string value;
-    std::string input_node;
-    std::string output_node;
-};
-
-
-class Capacitor: public Component {
-public:
-    Capacitor(const std::string& token_str);
-    static char get_identifier() {return identifier;};
-    static bool represented_by(const std::string &token_str);
-
-protected:
-    inline static char identifier = 'C';
-
-    int id;
-    std::string value;
-    std::string input_node;
-    std::string output_node;
-};
-
-
-class Inductor: public Component {
-public:
-    Inductor(const std::string& token_str);
-    static char get_identifier() {return identifier;};
-    static bool represented_by(const std::string &token_str);
-
-protected:
-    inline static char identifier = 'L';
-
-    int id;
-    std::string value;
-    std::string input_node;
-    std::string output_node;
-};
-
-
-class Diode: public Component {
-public:
-    Diode(const std::string& token_str);
-    static char get_identifier() {return identifier;};
-    static bool represented_by(const std::string &token_str);
-
-protected:
-    inline static char identifier = 'I';
-
-    int id;
-    std::string value;
-    std::string anode;
-    std::string cathode;
-};
-
-
-class BipolarJunctionTransistor: public Component {
-public:
-    BipolarJunctionTransistor(const std::string& token_str);
-    static char get_identifier() {return identifier;};
-    static bool represented_by(const std::string &token_str);
-
-protected:
-    inline static char identifier = 'Q';
-
-    int id;
-    std::string value;
-    std::string collector;
-    std::string base;
-    std::string emitter;
-};
-
-
-class Mosfet: public Component {
-public:
-    Mosfet(const std::string& token_str);
-    static char get_identifier() {return identifier;};
-    static bool represented_by(const std::string &token_str);
-
-protected:
-    inline static char identifier = 'M';
-
-    int id;
-    std::string value;
-    std::string drain;
-    std::string gate;
-    std::string source;
-};
-
-
-class VoltageControlledCurrentSource: public Component {
-public:
-    VoltageControlledCurrentSource(const std::string& token_str);
-    static char get_identifier() {return identifier;};
-    static bool represented_by(const std::string &token_str);
-
-protected:
-    inline static char identifier = 'G';
-
-    int id;
-    std::string value;
-    std::string positive;
-    std::string negative;
-    std::string control_positive;
-    std::string control_negative;
+    std::vector<std::string> nodes;
 };
 
 #endif

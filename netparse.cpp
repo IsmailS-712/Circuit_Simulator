@@ -33,32 +33,10 @@ std::vector<std::string>* load_netlist(const std::string& filename) {
 }
 
 
-std::vector<Component*>* parse_netlist_to_components(std::vector<std::string>* netlist) {
-    auto* components = new std::vector<Component*>;
-
+void parse_netlist_to_components(std::vector<Component*>& components, std::vector<std::string>* netlist) {
     for (const std::string& line: *netlist) {
-        if (IndependentVoltageSource::represented_by(line)) {
-            components->push_back(new IndependentVoltageSource(line));
-        } else if (CurrentSource::represented_by(line)) {
-            components->push_back(new CurrentSource(line));
-        } else if (Resistor::represented_by(line)) {
-            components->push_back(new Resistor(line));
-        } else if (Capacitor::represented_by(line)) {
-            components->push_back(new Capacitor(line));
-        } else if (Inductor::represented_by(line)) {
-            components->push_back(new Inductor(line));
-        } else if (Diode::represented_by(line)) {
-            components->push_back(new Diode(line));
-        } else if (Diode::represented_by(line)) {
-            components->push_back(new Diode(line));
-        } else if (BipolarJunctionTransistor::represented_by(line)) {
-            components->push_back(new BipolarJunctionTransistor(line));
-        } else if (Mosfet::represented_by(line)) {
-            components->push_back(new Mosfet(line));
-        } else if (VoltageControlledCurrentSource::represented_by(line)) {
-            components->push_back(new VoltageControlledCurrentSource(line));
-        }
+        ParseReturn* parsed_line = parse_netlist_line(line);
+        components.push_back(new Component(parsed_line));
+        delete parsed_line;
     }
-
-    return components;
 }

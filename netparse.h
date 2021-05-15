@@ -12,6 +12,6 @@
 
 
 std::vector<std::string>* load_netlist(const std::string& filename);
-std::vector<Component*>* parse_netlist_to_components(std::vector<std::string>* netlist);
+void parse_netlist_to_components(std::vector<Component*>& components, std::vector<std::string>* netlist);
 
 #endif

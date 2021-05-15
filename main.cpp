@@ -16,11 +16,16 @@
 
 
 int main() {
-    std::vector<std::string>* netlist = load_netlist("test_netlist.txt");
-    std::vector<Component*>* components = parse_netlist_to_components(netlist);
+    // std::vector<std::string>* netlist = load_netlist("test_netlist.txt");
+    auto* netlist = new std::vector<std::string>;
+    netlist->push_back("R1 N001 N003 1k");
+    netlist->push_back("R2 N002 N001 1Meg");
 
-    for (Component* component: *components) {
-        std::cout << component->get_id() << " " << component->get_value() << std::endl;
+    std::vector<Component*> components;
+    parse_netlist_to_components(components, netlist);
+
+    for (Component* component: components) {
+        std::cout << component->get_identifier() << " " << component->get_id() << " " << component->get_value() << std::endl;
     }
     return 0;
 }
