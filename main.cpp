@@ -25,7 +25,7 @@ int main() {
     parse_netlist_to_components(components, netlist);
 
     for (Component* component: components) {
-        std::cout << component->get_identifier() << " " << component->get_id() << " " << component->get_value() << std::endl;
+        std::cout << "Converted Value: " << component->converted_value() << std::endl;
     }
     return 0;
 }

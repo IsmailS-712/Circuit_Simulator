@@ -26,6 +26,7 @@ public:
     char get_identifier() const {return identifier;};
     int get_id() const {return id;};
     std::string get_value() {return value;};
+    double converted_value();
     std::vector<std::string> get_nodes() {return nodes;};
 
 private:
