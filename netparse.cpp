@@ -36,7 +36,7 @@ std::vector<std::string>* load_netlist(const std::string& filename) {
 void parse_netlist_to_components(std::vector<Component*>& components, std::vector<std::string>* netlist) {
     for (const std::string& line: *netlist) {
         if (line.rfind('.', 0) == 0) {
-            // Skip to next line if current line starts with a '.' as this line cannot be parsaed into a Component
+            // Skip to next line if current line starts with a '.' as this line cannot be parsed into a Component
             continue;
         }
         ParseReturn* parsed_line = parse_netlist_line(line);
