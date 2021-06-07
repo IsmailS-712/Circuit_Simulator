@@ -8,7 +8,7 @@
 #include <vector>
 #include <string>
 
-
+// TODO - output format: frequency,gain,phase
 namespace csv {
     std::string join_items_into_row(const std::vector<std::string>& items, const char delimiter);
     void write_row(const std::vector<std::string>& items, const std::string& filename);
