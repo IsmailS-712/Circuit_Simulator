@@ -11,8 +11,7 @@
 
 
 // Reads the given netlist file and returns a reference to a vector of lines in the file
-std::vector<std::string>* load_netlist(const std::string& filename) {
-    auto *lines = new std::vector<std::string>;
+void load_netlist(std::vector<std::string>& out_vector, const std::string& filename) {
     std::ifstream infile(filename);
 
     std::string line;
@@ -26,15 +25,13 @@ std::vector<std::string>* load_netlist(const std::string& filename) {
             break;
         }
 
-        lines->push_back(line);
+        out_vector.push_back(line);
     }
-
-    return lines;
 }
 
 
-void parse_netlist_to_components(std::vector<Component*>& components, std::vector<std::string>* netlist) {
-    for (const std::string& line: *netlist) {
+void parse_netlist_to_components(std::vector<Component*>& components, std::vector<std::string>& netlist) {
+    for (const std::string& line: netlist) {
         if (line.rfind('.', 0) == 0) {
             // Skip to next line if current line starts with a '.' as this line cannot be parsed into a Component
             continue;
