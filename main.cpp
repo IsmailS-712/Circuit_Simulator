@@ -9,14 +9,14 @@
 
 
 int main() {
-    std::string filename = "test_netlist.txt";
+    std::string filename;
     std::cout << "Enter netlist filename:" << std::endl;
     std::cin >> filename;
 
     std::vector<std::string> netlist;
     load_netlist(netlist, filename);
 
-    int output_node = 3;
+    int output_node;
     std::cout << "Select output node:" << std::endl;
     std::cin >> output_node;
 
@@ -73,7 +73,7 @@ int main() {
         output_rows.push_back(csv::join_items_into_row(output_values, ','));
     }
 
-    std::string output_filename = regex_extract(filename, "^([^\\.]+)")[0] + "_output.txt";
+    std::string output_filename = regex_extract(filename, "^([^\\.]+)")[0] + "_output.csv";
     csv::write_rows(output_rows, output_filename);
 
     return 0;
