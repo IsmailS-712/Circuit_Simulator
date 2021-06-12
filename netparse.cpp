@@ -41,3 +41,19 @@ void parse_netlist_to_components(std::vector<Component*>& components, std::vecto
         delete parsed_line;
     }
 }
+
+
+void parse_simulation_description(const std::vector<std::string>& netlist, double& points_per_decade, double& start_frequency, double& stop_frequency) {
+    std::string simulation_description;
+    for (const auto& line: netlist) {
+        if (line.substr(0, 3) == ".ac") {
+            simulation_description = line;
+            break;
+        }
+    }
+    std::vector<std::string> simulation_parts;
+    split_string_by_space(simulation_parts, simulation_description);
+    points_per_decade = convert_value(simulation_parts[2]);
+    start_frequency = convert_value(simulation_parts[3]);
+    stop_frequency = convert_value(simulation_parts[4]);
+}

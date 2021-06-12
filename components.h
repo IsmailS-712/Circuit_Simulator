@@ -13,12 +13,15 @@
 
 struct ParseReturn {
     std::string identifier;
-    std::vector<std::string> nodes;
+    std::vector<int> nodes;
     std::string value;
 };
 
 
 ParseReturn* parse_netlist_line(const std::string &token_str);
+std::vector<std::string> regex_extract(const std::string& s, const std::string& re);
+void split_string_by_space(std::vector<std::string>& out_vector, const std::string& string);
+double convert_value(const std::string& value);
 
 
 class Component {
@@ -29,13 +32,16 @@ public:
     std::string get_value() {return value;};
     bool has_converted_value();
     double converted_value();
-    std::vector<std::string> get_nodes() {return nodes;};
+    std::vector<int> get_nodes() {return nodes;};
+    bool is_vs();
+    float get_amplitude();
+    float get_phase();
 
 private:
     char identifier;
     int id;
     std::string value;
-    std::vector<std::string> nodes;
+    std::vector<int> nodes;
 };
 
 #endif

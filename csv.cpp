@@ -9,7 +9,7 @@
 #include "csv.h"
 
 
-std::string csv::join_items_into_row(const std::vector<std::string>& items, const char delimiter = ',') {
+std::string csv::join_items_into_row(const std::vector<std::string>& items, char delimiter = ',') {
     // Join a vector of items with the given delimiter.
     // The row will have a newline appended to it and no trailing delimiter.
     std::string row;

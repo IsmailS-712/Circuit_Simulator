@@ -5,7 +5,6 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <iterator>
 #include <unordered_map>
 #include <regex>
 
@@ -17,6 +16,7 @@ std::unordered_map<std::string, double> value_map = {
         {"n", 1.0e-9},
         {"u", 1.0e-6},
         {"m", 1.0e-3},
+        {"", 1},
         {"k", 1.0e3},
         {"Meg", 1.0e6},
         {"G", 1.0e9}
@@ -59,8 +59,9 @@ ParseReturn* parse_netlist_line(const std::string &token_str) {
     parsed->identifier = tokens[0];
     parsed->value = tokens[tokens.size() - 1];
 
-    for (int i = 1; i < tokens.size(); i++) {
-        parsed->nodes.push_back(tokens[i]);
+    for (int i = 1; i < tokens.size() - 1; i++) {
+        //std::cout << regex_extract(tokens[i], "N?(\\d+)")[0] << std::endl;
+        parsed->nodes.push_back(std::stoi(regex_extract(tokens[i], "N?(\\d+)")[1]));
     }
     return parsed;
 }
@@ -79,6 +80,20 @@ std::vector<std::string> regex_extract(const std::string& s, const std::string& 
 }
 
 
+void split_string_by_space(std::vector<std::string>& out_vector, const std::string& string) {
+    std::istringstream iss(string);
+    for(std::string s; iss >> s;)
+        out_vector.push_back(s);
+}
+
+
+double convert_value(const std::string& value) {
+    double numeric_val = std::stod(regex_extract(value, "\\d+(\\.\\d+)?")[0]);
+    double multiplier = value_map[regex_extract(value, "[a-zA-Z]+")[0]];
+    return numeric_val * multiplier;
+}
+
+
 // Definition of Component members
 Component::Component(ParseReturn *parsed_line) {
     identifier = parsed_line->identifier[0];
@@ -88,15 +103,29 @@ Component::Component(ParseReturn *parsed_line) {
 }
 
 double Component::converted_value() {
-    double numeric_val = std::stod(regex_extract(value, "\\d+(\\.\\d+)?")[0]);
-    double multiplier = value_map[regex_extract(value, "[a-zA-Z]+")[0]];
-    return numeric_val * multiplier;
+    return convert_value(value);
 }
 
 bool Component::has_converted_value() {
     // Value for diodes, BJTs and MOSFETs cannot be converted as it is a model number.
-    if (identifier == 'D' || identifier == 'Q' || identifier == 'M') {
+    if (identifier == 'D' || identifier == 'Q' || identifier == 'M' || is_vs()) {
         return false;
     }
     return true;
+}
+
+bool Component::is_vs() {
+    return std::regex_match(value, std::regex("^AC\\([^\\s\\)]\\s[^\\)]\\)$"));
+}
+
+float Component::get_amplitude() {
+    std::vector<std::string> parts;
+    split_string_by_space(parts, value.substr(3, value.length() - 4));
+    return std::stof(parts[0]);
+}
+
+float Component::get_phase() {
+    std::vector<std::string> parts;
+    split_string_by_space(parts, value.substr(3, value.length() - 4));
+    return std::stof(parts[1]);
 }
