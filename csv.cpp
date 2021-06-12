@@ -9,7 +9,7 @@
 #include "csv.h"
 
 
-std::string csv::join_items_into_row(const std::vector<std::string>& items, char delimiter = ',') {
+std::string csv::join_items_into_row(const std::vector<std::string>& items, char delimiter) {
     // Join a vector of items with the given delimiter.
     // The row will have a newline appended to it and no trailing delimiter.
     std::string row;
@@ -29,7 +29,7 @@ std::string csv::join_items_into_row(const std::vector<std::string>& items, char
 void csv::write_row(const std::vector<std::string>& items, const std::string& filename) {
     // Append a single row to the file with given name.
     // Items will be joined with commas and a newline appended before the row is written.
-    std::string row = csv::join_items_into_row(items);
+    std::string row = csv::join_items_into_row(items, ',');
 
     std::ofstream outfile;
     outfile.open(filename, std::ios_base::app);
