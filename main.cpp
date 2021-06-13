@@ -57,7 +57,7 @@ int main() {
 
             output_values.push_back(std::to_string(omega));
             output_values.push_back(std::to_string(20 * std::log10(std::abs(output) / ac_vin)));
-            output_values.push_back(std::to_string(std::atan(output.imag() / output.real())));
+            output_values.push_back(std::to_string((std::atan(output.imag() / output.real()) * 180/M_PI)));
 
             output_rows.push_back(csv::join_items_into_row(output_values, ','));
 
